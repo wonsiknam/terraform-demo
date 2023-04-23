@@ -3,18 +3,23 @@ pipeline {
   stages {
     stage('terraform-init') {
       steps {
-        sh 'terraform init'
+        sh 'terraform init -input=false'
+      }
+    }
+    stage('terraform-validate') {
+      steps {
+        sh 'terraform validate -json'
       }
     }
     stage('terraform-plan') {
       steps {
-        sh 'terraform plan'
+        sh 'terraform plan -input=false'
       }
     }
     stage('terraform-apply') {
       steps {
-        sh 'terraform apply -auto-approve'
+        input "Confirm & Apply"
+        sh 'terraform apply -input=false -auto-approve'
       }
     }
   }
-}
