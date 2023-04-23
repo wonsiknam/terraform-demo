@@ -18,7 +18,7 @@ pipeline {
     }
     stage('terraform-apply') {
       steps {
-        input "Confirm & Apply"
+        input "Process & Abort"
         sh 'terraform apply -input=false -auto-approve'
       }
     }
